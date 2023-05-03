@@ -44,11 +44,11 @@ class ArrayList {
   }
 
   remove(index) {
-    if (index > -1) {
-      if (index in this.data) {
-        delete this.data[index];
-        this.length--;
-      }
+    if (index > -1 && index < this.length) {
+      let removedElement = this.data[index];
+      this.length--;
+      this.moveArrayElements(index + 1, -1);
+      return removedElement;
     }
   }
 
@@ -65,7 +65,7 @@ class ArrayList {
       }
     } else {
       while (startIndex < this.length + 1) {
-        // console.log("Start", this.data);
+        //console.log("Start", this.data);
         //console.log(startIndex, " ", this.length);
         this.data[startIndex - 1] = this.data[startIndex];
         startIndex++;
@@ -84,7 +84,7 @@ arr.shift();
 arr.splice(3, 0, 99);
 arr[20] = 80;
 arr[7] = 45;
-arr.splice(4, 1);
+arr.splice(6, 1); //removing element at index
 let myArray = new ArrayList();
 
 myArray.push(1);
@@ -100,7 +100,8 @@ myArray.shift();
 myArray.insertBetween(3, 99);
 myArray.insertAt(20, 80);
 myArray.insertAt(7, 45);
-myArray.remove(4);
+myArray.remove(6);
 
 console.log("JS", arr.length, arr);
+
 console.log("My", myArray.length, myArray.data);
