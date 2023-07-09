@@ -109,6 +109,19 @@ class binarySearchTree {
       }
     }
   }
+
+  printBST(currentNode = this.root, level = 0, prefix = "") {
+    if (currentNode === null) {
+      return;
+    }
+
+    const indent = "    ".repeat(level);
+    const marker = prefix ? `${prefix}─` : "";
+    console.log(indent + marker + currentNode.value);
+
+    this.printBST(currentNode.left, level + 1, "├");
+    this.printBST(currentNode.right, level + 1, "└");
+  }
 }
 const tree = new binarySearchTree();
 tree.insert(9);
@@ -119,3 +132,4 @@ tree.insert(170);
 tree.insert(15);
 tree.insert(1);
 tree.remove(170);
+tree.printBST();
