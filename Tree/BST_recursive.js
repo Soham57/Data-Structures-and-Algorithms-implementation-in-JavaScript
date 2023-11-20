@@ -31,16 +31,26 @@ class Tree {
 
     insert(val, root = this.root) {
         if (!root) {
-            return this.root = new Node(val);
+            this.root = new Node(val);
+            return this.root;
         }
-
-        if (root.val < val) {
-            root.right = this.insert(val, root.right);
-        } else if (root.val > val) {
-            root.left = this.insert(val, root.left);
+    
+        if (val < root.val) {
+            if (!root.left) {
+                root.left = new Node(val);
+            } else {
+                root.left = this.insert(val, root.left);
+            }
+        } else if (val > root.val) {
+            if (!root.right) {
+                root.right = new Node(val);
+            } else {
+                root.right = this.insert(val, root.right);
+            }
         }
         return root;
     }
+    
 
     remove(val, root = this.root) {
         if (!root) {
