@@ -9,7 +9,7 @@ class ArrayList {
     this.length++;
   }
 
-  pop(element) {
+  pop() {
     let poppedElement = this.data[this.length - 1];
     delete this.data[this.length - 1];
     this.length--;
