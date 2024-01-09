@@ -1,0 +1,3 @@
+function cycleDetectionInDirected(V, adjacencyList){
+    
+}
