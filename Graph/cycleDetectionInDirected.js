@@ -26,12 +26,9 @@ function hasCycle(node, adjacencyList, visitedNodes, inProgressNodes){
     let neighbors = adjacencyList[node];
 
     for(let nextNode of neighbors){
-        if(!visitedNodes.has(nextNode)){
-            if(hasCycle(nextNode, adjacencyList, visitedNodes, inProgressNodes))
-                return true;
-        }
+        if(hasCycle(nextNode, adjacencyList, visitedNodes, inProgressNodes))
+            return true;
     }
     inProgressNodes.delete(node);
     return false;
 }
-
