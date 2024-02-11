@@ -1,3 +1,4 @@
+//Union find with path complession, and ranks
 class UnionFind {
   constructor() {
     this.parents = {};
@@ -32,7 +33,7 @@ class UnionFind {
     else if(this.ranks[valueTwoRoot] < this.ranks[valueOneRoot]){
       this.parents[valueTwoRoot] = valueOneRoot;
     }
-
+    //Having same height
     else{
       this.parents[valueTwoRoot] = valueOneRoot;
       this.ranks[valueOneRoot]++;
