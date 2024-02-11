@@ -40,3 +40,6 @@ class UnionFind {
     }
   }
 }
+
+//TC: (Find / Union): O(Inverse Ackermann Function(n))
+//SC: (Find / Union): O(Inverse Ackermann Function(n)) due to recursion
