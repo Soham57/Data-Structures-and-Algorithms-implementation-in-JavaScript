@@ -26,6 +26,8 @@ class UnionFind {
     const valueOneRoot = this.find(valueOne);
     const valueTwoRoot = this.find(valueTwo);
 
+    if(valueOneRoot === valueTwoRoot) return null;
+    
     if(this.ranks[valueOneRoot] < this.ranks[valueTwoRoot]){
       this.parents[valueOneRoot] = valueTwoRoot;
     }
