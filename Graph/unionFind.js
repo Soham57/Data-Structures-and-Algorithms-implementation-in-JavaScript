@@ -40,6 +40,7 @@ class UnionFind {
       this.parents[valueTwoRoot] = valueOneRoot;
       this.ranks[valueOneRoot]++;
     }
+    return true;
   }
 }
 
