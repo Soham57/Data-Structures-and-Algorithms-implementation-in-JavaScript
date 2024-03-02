@@ -1,36 +1,99 @@
-import { MinPriorityQueue } from '@datastructures-js/priority-queue';
+function dijkstrasAlgorithm(start, edges){
+    const shortestPath = new Map();
+    const minHeap = new MinHeap();
+    minHeap.enqueue(start, 0); // Node, weight
 
-// Given a list of edges of a connected undirected graph,
-// with nodes numbered from 1 to n,
-// return a list edges making up the minimum spanning tree.
-function shortestPath(edges, n, src) {
-    let adj = {};
-    for (i = 1; i < n + 1; i++) {
-        adj[i] = [];
-    }
-    for (let edge of edges) {
-        let {n1, n2, weight} = edge;
-        adj[n1].push([n2, weight]);
-    }
-
-    let shortest = {};
-    let minHeap = new MinPriorityQueue({
-        priority: (item) => item[0]
-    });
-    minHeap.enqueue([0, src]);
-    
-    while (minHeap.front() !== null) {
-        let {w1, n1} = minHeap.dequeue().element;
-        if (shortest.hasOwnProperty(n1)) {
+    while(!minHeap.isEmpty()){
+        const { value: currNode, priority: currDistance } = minHeap.dequeue();
+        if(shortestPath.has(currNode)){
             continue;
         }
-        shortest[n1] = w1;
-        for (let pair of adj[n1]) {
-            let {neighbor, w2} = pair;
-            if (!shortest.hasOwnProperty(neighbor)) {
-                minHeap.add([w1 + w2, n2]);
+        
+        shortestPath.set(currNode, currDistance);
+
+        //Traversing every edge from the currNode
+        for(const [newNode, newWeight] of edges[currNode]){
+            if(!shortestPath.has(newNode)){
+                minHeap.enqueue(newNode, newWeight + currDistance);
             }
         }
-    } 
-    return shortest;
+        
+    }
+    
+    return getMinDistances(shortestPath, edges.length);
+}
+
+function getMinDistances(shortestPath, length){
+  const minDistances = new Array(length).fill(-1);
+  for([node, distance] of shortestPath.entries()){
+    minDistances[node] = distance;
+  }
+  return minDistances;
+}
+
+class MinHeap {
+    constructor() {
+        this.heap = [];
+    }
+
+    enqueue(value, priority) {
+        const node = { value, priority };
+        this.heap.push(node);
+        this.bubbleUp();
+    }
+
+    bubbleUp() {
+        let index = this.heap.length - 1;
+        while (index > 0) {
+            const parentIndex = Math.floor((index - 1) / 2);
+            if (this.heap[parentIndex].priority <= this.heap[index].priority) break;
+            [this.heap[parentIndex], this.heap[index]] = [this.heap[index], this.heap[parentIndex]];
+            index = parentIndex;
+        }
+    }
+
+    dequeue() {
+        if (this.heap.length === 0) return null;
+        if (this.heap.length === 1) return this.heap.pop();
+        const min = this.heap[0];
+        this.heap[0] = this.heap.pop();
+        this.sinkDown();
+        return min;
+    }
+
+    sinkDown() {
+        let index = 0;
+        const length = this.heap.length;
+        const element = this.heap[0];
+        while (true) {
+            const leftChildIndex = 2 * index + 1;
+            const rightChildIndex = 2 * index + 2;
+            let leftChild, rightChild;
+            let swap = null;
+
+            if (leftChildIndex < length) {
+                leftChild = this.heap[leftChildIndex];
+                if (leftChild.priority < element.priority) {
+                    swap = leftChildIndex;
+                }
+            }
+            if (rightChildIndex < length) {
+                rightChild = this.heap[rightChildIndex];
+                if (
+                    (swap === null && rightChild.priority < element.priority) ||
+                    (swap !== null && rightChild.priority < leftChild.priority)
+                ) {
+                    swap = rightChildIndex;
+                }
+            }
+            if (swap === null) break;
+            this.heap[index] = this.heap[swap];
+            this.heap[swap] = element;
+            index = swap;
+        }
+    }
+
+    isEmpty() {
+        return this.heap.length === 0;
+    }
 }
