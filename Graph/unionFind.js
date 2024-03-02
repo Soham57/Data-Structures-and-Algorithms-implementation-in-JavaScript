@@ -1,4 +1,4 @@
-//Union find with path complession, and ranks
+//Union find with path compression, and ranks
 class UnionFind {
   constructor() {
     this.parents = {};
