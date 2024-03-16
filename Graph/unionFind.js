@@ -45,4 +45,4 @@ class UnionFind {
 }
 
 //TC: (Find / Union): O(Inverse Ackermann Function(n))
-//SC: (Find / Union): O(Inverse Ackermann Function(n)) due to recursion
+//SC: (Find / Union): O(Inverse Ackermann Function(n)) due to recursion + O(n) for storing parents & ranks
