@@ -1,3 +1,4 @@
+//TC = SC: O(V + E), where V is the number of vertices (n) and E is the number of edges in the graph. 
 function topologicalSort(edges, n) {
     let adj = new Map();
     for (let i = 1; i < n + 1; i++) {
