@@ -1,1 +1,17 @@
+function minimumSpanningTree(edges, n){
+  const disjointSet = new UnionFind();
+  for(let idx = 0; idx < n; idx++){
+    disjointSet.createSet(idx);
+  }
 
+  edges.sort((a, b) => a[2] - b[2]);
+  const mst = [];
+  for(const edge of edges){
+    const [node1, node2, distance] = edge;
+    if(disjointSet.union(node1, node2) == false){
+        continue;
+    }
+    mst.push(edge);
+  }
+return mst;
+}
