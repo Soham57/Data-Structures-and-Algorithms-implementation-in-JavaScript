@@ -13,7 +13,7 @@ function topologicalSort(edges, n) {
     for (let i = 1; i < n + 1; i++) {
         dfs(i, adj, visit, topSort);
     }
-    topSort.reverse();
+    topSort.reverse();    //Required based on adjList structure, only if source -> dependency else not
     return topSort;
 }
 
