@@ -1,3 +1,5 @@
+//TC: O(E * log(V))
+//SC: O(V)
 function dijkstrasAlgorithm(start, edges){
     const shortestPath = new Map();
     const minHeap = new MinHeap();
